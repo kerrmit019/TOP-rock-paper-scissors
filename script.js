@@ -12,6 +12,9 @@ let computerScore = 0;
 // run the game
 game();
 
+// TODO: Add in function playerMove() to let player input their selection [rock, paper, scissors] for the round
+function playerMove() {}
+
 // function to randomly select between rock, paper and scissors (computer's move)
 function computerPlay() {
   moves = ["Rock", "Paper", "Scissors"];
@@ -91,6 +94,7 @@ function playRound(playerSelection, computerSelection) {
 
 // play a game of 5 rounds
 // keep score and report at end
+// announce the winner
 function game() {
   //    play 5 rounds
   for (i = 0; i < 5; i++) {
