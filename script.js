@@ -6,6 +6,9 @@
 // paper beats rock
 // scissors beats paper
 
+let playerScore = 0;
+let computerScore = 0;
+
 // function to randomly select between rock, paper and scissors (computer's move)
 function computerPlay() {
   moves = ["Rock", "Paper", "Scissors"];
@@ -13,9 +16,32 @@ function computerPlay() {
   return moves[Math.floor(Math.random(0) * 3)];
 }
 
+function updateScore(winner) {
+  if (winner === "player") {
+    playerScore++;
+  } else {
+    computerScore++;
+  }
+  //   console.log(playerScore, computerScore);
+}
+
 // play a round player choice vs computer choice
 function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
+
+  //   player wins round
+  function winner(playerSelection, computerSelection) {
+    updateScore("player");
+    return `You Win! ${
+      playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1)
+    } beats ${computerSelection}`;
+  }
+
+  //   player loses round--- pc wins
+  function loser(playerSelection, computerSelection) {
+    updateScore("computer");
+    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+  }
 
   // check for a draw
   if (computerSelection.toLowerCase() === playerSelection) {
@@ -26,25 +52,23 @@ function playRound(playerSelection, computerSelection) {
   switch (playerSelection) {
     case "rock":
       if (computerSelection === "Scissors") {
-        return "You win! Rock beats Scissors";
+        return winner(playerSelection, computerSelection);
       } else {
-        return `You Lose! ${computerSelection} beats Rock`;
+        return loser(playerSelection, computerSelection);
       }
-
-      break;
 
     case "paper":
       if (computerSelection === "Rock") {
-        return "You win! Paper beats Rock";
+        return winner(playerSelection, computerSelection);
       } else {
-        return `You Lose! ${computerSelection} beats Paper`;
+        return loser(playerSelection, computerSelection);
       }
 
     case "scissors":
       if (computerSelection === "Paper") {
-        return "You win! Scissors beats Paper";
+        return winner(playerSelection, computerSelection);
       } else {
-        return `You Lose! ${computerSelection} beats Scissors.`;
+        return loser(playerSelection, computerSelection);
       }
 
     default:
@@ -55,9 +79,12 @@ function playRound(playerSelection, computerSelection) {
 // play a game of 5 rounds
 // keep score and report at end
 function game() {
+  //    play 5 rounds
   for (i = 0; i < 5; i++) {
-    console.log(playRound("scissors", computerPlay()));
+    console.log(playRound("rock", computerPlay()));
+    console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
   }
+
   return;
 }
 
