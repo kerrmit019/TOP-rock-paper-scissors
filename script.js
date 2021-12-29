@@ -13,7 +13,13 @@ let computerScore = 0;
 game();
 
 // TODO: Add in function playerMove() to let player input their selection [rock, paper, scissors] for the round
-function playerMove() {}
+function playerMove() {
+  let playerMove = prompt("What's your move (Rock, Paper, or Scissors)?");
+  if (playerMove === null) {
+    return "Move skipped.";
+  }
+  return playerMove;
+}
 
 // function to randomly select between rock, paper and scissors (computer's move)
 function computerPlay() {
@@ -56,7 +62,9 @@ function playRound(playerSelection, computerSelection) {
   //   player loses round--- pc wins
   function loser(playerSelection, computerSelection) {
     updateScore("computer");
-    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    return `You Lose! ${computerSelection} beats ${
+      playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1)
+    }`;
   }
 
   // check for a draw
@@ -98,7 +106,7 @@ function playRound(playerSelection, computerSelection) {
 function game() {
   //    play 5 rounds
   for (i = 0; i < 5; i++) {
-    console.log(playRound("rock", computerPlay()));
+    console.log(playRound(playerMove(), computerPlay()));
   }
 
   console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
