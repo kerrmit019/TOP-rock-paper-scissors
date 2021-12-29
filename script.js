@@ -9,6 +9,9 @@
 let playerScore = 0;
 let computerScore = 0;
 
+// run the game
+game();
+
 // function to randomly select between rock, paper and scissors (computer's move)
 function computerPlay() {
   moves = ["Rock", "Paper", "Scissors"];
@@ -23,6 +26,16 @@ function updateScore(winner) {
     computerScore++;
   }
   //   console.log(playerScore, computerScore);
+}
+
+function calculateGameWinner() {
+  if (playerScore === computerScore) {
+    return "The game is a draw!";
+  } else if (playerScore > computerScore) {
+    return "You win the game!";
+  } else {
+    return "You Lose the game!";
+  }
 }
 
 // play a round player choice vs computer choice
@@ -82,23 +95,9 @@ function game() {
   //    play 5 rounds
   for (i = 0; i < 5; i++) {
     console.log(playRound("rock", computerPlay()));
-    console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
   }
 
+  console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
+  console.log(calculateGameWinner());
   return;
 }
-
-console.log(game());
-// const playerSelection = "PAPER";
-// let computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-// computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-// computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-// computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-// computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-// computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
