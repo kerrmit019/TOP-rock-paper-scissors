@@ -12,7 +12,7 @@ let computerScore = 0;
 // run the game
 game();
 
-// TODO: Add in function playerMove() to let player input their selection [rock, paper, scissors] for the round
+// let player input their selection [rock, paper, scissors] for the round
 function playerMove() {
   let playerMove = prompt("What's your move (Rock, Paper, or Scissors)?");
   if (playerMove === null) {
@@ -21,7 +21,7 @@ function playerMove() {
   return playerMove;
 }
 
-// function to randomly select between rock, paper and scissors (computer's move)
+//  select between rock, paper and scissors (computer's move)
 function computerPlay() {
   moves = ["Rock", "Paper", "Scissors"];
 
