@@ -14,7 +14,8 @@ game();
 
 // let player input their selection [rock, paper, scissors] for the round
 function playerMove() {
-  let playerMove = prompt("What's your move (Rock, Paper, or Scissors)?");
+  // let playerMove = prompt("What's your move (Rock, Paper, or Scissors)?");
+  let playerMove = "rock";
   if (playerMove === null) {
     return "Move skipped.";
   }
@@ -100,16 +101,26 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// play a game of 5 rounds
 // keep score and report at end
 // announce the winner
 function game() {
-  //    play 5 rounds
-  for (i = 0; i < 5; i++) {
-    console.log(playRound(playerMove(), computerPlay()));
-  }
+  console.log(playRound(playerMove(), computerPlay()));
 
   console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
   console.log(calculateGameWinner());
   return;
 }
+
+// TODOS
+// For now, remove the logic that plays exactly five rounds. -DONE
+// Create three buttons, one for each selection.
+// Add an event listener to the buttons that calls your playRound
+//  function with the correct playerSelection every time a button is clicked.
+// (you can keep the console.logs for this step)
+
+// Add a div for displaying results and change all of your console.logs into DOM methods.
+// Display the running score, and announce a winner of the game once one player reaches 5 points.
+// You will likely have to refactor (rework/rewrite) your original code to make it work for this.
+// That’s OK! Reworking old code is an important part of a programmer’s life.
+// Once you’re all done with your UI and make sure everything’s satisfactory,
+// it’s time to merge our current branch rps-ui to our main branch.
