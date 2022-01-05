@@ -10,7 +10,7 @@ let playerScore = 0;
 let computerScore = 0;
 
 // run the game
-game();
+// game();
 
 // let player input their selection [rock, paper, scissors] for the round
 function playerMove() {
@@ -111,12 +111,24 @@ function game() {
   return;
 }
 
+// DOM manipulation
+// event listeners
+const buttons = document.querySelectorAll("button");
+
+// add click event listener for each button, which returns the label of the
+// button - Rock, Paper or Scissors, to the playRound function
+buttons.forEach((button) =>
+  button.addEventListener("click", (e) =>
+    console.log(playRound(e.target.textContent, computerPlay()))
+  )
+);
+
 // TODOS
-// For now, remove the logic that plays exactly five rounds. -DONE
-// Create three buttons, one for each selection.
+// For now, remove the logic that plays exactly five rounds. - DONE
+// Create three buttons, one for each selection - DONE.
 // Add an event listener to the buttons that calls your playRound
 //  function with the correct playerSelection every time a button is clicked.
-// (you can keep the console.logs for this step)
+// (you can keep the console.logs for this step) - DONE
 
 // Add a div for displaying results and change all of your console.logs into DOM methods.
 // Display the running score, and announce a winner of the game once one player reaches 5 points.
