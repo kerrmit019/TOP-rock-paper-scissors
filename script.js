@@ -9,6 +9,56 @@
 let playerScore = 0;
 let computerScore = 0;
 
+// DOM items
+const buttons = document.querySelectorAll("button");
+
+// set up DOM to insert results
+const resultsSpace = document.querySelector(".results");
+// create round outcome para and append to resultsSpace
+const roundPara = document.createElement("p");
+resultsSpace.appendChild(roundPara);
+
+// create score para, and append to resultsSpace
+const scorePara = document.createElement("p");
+resultsSpace.appendChild(scorePara);
+
+// create winner announcement
+const winnerAnnouncement = document.createElement("p");
+
+// create play again button to appear when game ends
+const playAgainBtn = document.createElement("button");
+playAgainBtn.textContent = "Play Again?";
+
+const playZone = document.querySelector(".game-container .play-zone");
+
+const gameContainer = document.querySelector(".game-container");
+// Event Listeners
+
+// event listener for play again button
+// when clicked clear scores and reset DOM
+playAgainBtn.addEventListener("click", playAgain);
+
+// event listeners for
+// buttons - Rock, Paper or Scissors, to the playRound function
+buttons.forEach((button) =>
+  button.addEventListener("click", makeMoveAndUpdateDOM)
+);
+
+// reset DOM and clear scores for next game
+function playAgain(e) {
+  playerScore = 0;
+  computerScore = 0;
+  roundPara.textContent = "";
+  scorePara.textContent = "";
+  winnerAnnouncement.textContent = "";
+  resultsSpace.removeChild(playAgainBtn);
+  gameContainer.removeChild(resultsSpace);
+  gameContainer.appendChild(playZone);
+  gameContainer.appendChild(resultsSpace);
+  resultsSpace.appendChild(roundPara);
+  resultsSpace.appendChild(scorePara);
+}
+
 //  select between rock, paper and scissors (computer's move)
 function computerPlay() {
   moves = ["Rock", "Paper", "Scissors"];
@@ -23,7 +73,6 @@ function updateScore(winner) {
     computerScore++;
   }
 }
-
 // First to 5 points wins
 function checkForGameWinner() {
   if (playerScore === 5 || computerScore === 5) {
@@ -90,61 +139,26 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// DOM manipulation
-const buttons = document.querySelectorAll("button");
+function makeMoveAndUpdateDOM(e) {
+  // add click event listener for each button, which returns the label of the
+  const roundOutcome = playRound(e.target.textContent, computerPlay());
 
-// set up DOM to insert results
-const resultsSpace = document.querySelector(".results");
-// create round outcome para and append to resultsSpace
-const roundPara = document.createElement("p");
-resultsSpace.appendChild(roundPara);
+  // update results div with roundOutcome and score
+  roundPara.textContent = roundOutcome;
+  scorePara.textContent = `Player: ${playerScore}; Computer: ${computerScore}`;
 
-// create score para, and append to resultsSpace
-const scorePara = document.createElement("p");
-resultsSpace.appendChild(scorePara);
+  // check for a winner
+  if (checkForGameWinner() !== "Choose again") {
+    // print game outcome to DOM
 
-// create winner announcement
-const winnerAnnouncement = document.createElement("p");
-
-// create play again button to appear when game ends
-const playAgainBtn = document.createElement("button");
-playAgainBtn.textContent = "Play Again?";
-// event listener for play again button
-// when clicked clear scores and reset DOM
-playAgainBtn.addEventListener("click", () => {
-  playerScore = 0;
-  computerScore = 0;
-  roundPara.textContent = "";
-  scorePara.textContent = "";
-  winnerAnnouncement.textContent = "";
-  resultsSpace.removeChild(playAgainBtn);
-  resultsSpace.appendChild(roundPara);
-  resultsSpace.appendChild(scorePara);
-});
-
-// event listeners for
-// buttons - Rock, Paper or Scissors, to the playRound function
-buttons.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    // add click event listener for each button, which returns the label of the
-    const roundOutcome = playRound(e.target.textContent, computerPlay());
-
-    // update results div with roundOutcome and score
-    roundPara.textContent = roundOutcome;
-    scorePara.textContent = `Player: ${playerScore}; Computer: ${computerScore}`;
-
-    // check for a winner
-    if (checkForGameWinner() !== "Choose again") {
-      // print game outcome to DOM
-
-      winnerAnnouncement.textContent = checkForGameWinner();
-      resultsSpace.appendChild(winnerAnnouncement);
-      // add play again button;
-
-      resultsSpace.appendChild(playAgainBtn);
-    }
-  })
-);
+    winnerAnnouncement.textContent = checkForGameWinner();
+    resultsSpace.appendChild(winnerAnnouncement);
+    // remove game buttons and what's your move h2
+    gameContainer.removeChild(playZone);
+    // add play again button;
+    resultsSpace.appendChild(playAgainBtn);
+  }
+}
 
 // TODOS
 // For now, remove the logic that plays exactly five rounds. - DONE
