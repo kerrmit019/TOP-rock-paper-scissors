@@ -115,28 +115,29 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// keep score and report at end
-// announce the winner
-function game() {
-  // console.log(playRound(playerMove(), computerPlay()));
-
-  // console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
-  console.log(calculateGameWinner());
-  return;
-}
-
 // DOM manipulation
-// event listeners
 const buttons = document.querySelectorAll("button");
 
-// add click event listener for each button, which returns the label of the
+// set up DOM to insert results
+const resultsSpace = document.querySelector(".results");
+// create round outcome para and append to resultsSpace
+const roundPara = document.createElement("p");
+resultsSpace.appendChild(roundPara);
+
+// create score para, and append to resultsSpace
+const scorePara = document.createElement("p");
+resultsSpace.appendChild(scorePara);
+
+// event listeners
 // button - Rock, Paper or Scissors, to the playRound function
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
+    // add click event listener for each button, which returns the label of the
     const roundOutcome = playRound(e.target.textContent, computerPlay());
-    console.log(roundOutcome);
 
-    console.log(`Player: ${playerScore}; Computer: ${computerScore}`);
+    // update results div with roundOutcome and score
+    roundPara.textContent = roundOutcome;
+    scorePara.textContent = `Player: ${playerScore}; Computer: ${computerScore}`;
 
     // check for a winner
     console.log(checkForGameWinner());

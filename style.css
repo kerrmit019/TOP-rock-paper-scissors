@@ -56,4 +56,7 @@ header h1 {
 .game-container .results {
   color: #505764;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
