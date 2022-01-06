@@ -9,19 +9,6 @@
 let playerScore = 0;
 let computerScore = 0;
 
-// run the game
-// game();
-
-// // let player input their selection [rock, paper, scissors] for the round
-// function playerMove() {
-//   // let playerMove = prompt("What's your move (Rock, Paper, or Scissors)?");
-//   let playerMove = "rock";
-//   if (playerMove === null) {
-//     return "Move skipped.";
-//   }
-//   return playerMove;
-// }
-
 //  select between rock, paper and scissors (computer's move)
 function computerPlay() {
   moves = ["Rock", "Paper", "Scissors"];
@@ -35,19 +22,7 @@ function updateScore(winner) {
   } else {
     computerScore++;
   }
-  //   console.log(playerScore, computerScore);
 }
-
-// replaced with checkForWinner in update of the game
-// function calculateGameWinner() {
-//   if (playerScore === computerScore) {
-//     return "The game is a draw!";
-//   } else if (playerScore > computerScore) {
-//     return "You win the game!";
-//   } else {
-//     return "You Lose the game!";
-//   }
-// }
 
 // First to 5 points wins
 function checkForGameWinner() {
@@ -128,8 +103,27 @@ resultsSpace.appendChild(roundPara);
 const scorePara = document.createElement("p");
 resultsSpace.appendChild(scorePara);
 
-// event listeners
-// button - Rock, Paper or Scissors, to the playRound function
+// create winner announcement
+const winnerAnnouncement = document.createElement("p");
+
+// create play again button to appear when game ends
+const playAgainBtn = document.createElement("button");
+playAgainBtn.textContent = "Play Again?";
+// event listener for play again button
+// when clicked clear scores and reset DOM
+playAgainBtn.addEventListener("click", () => {
+  playerScore = 0;
+  computerScore = 0;
+  roundPara.textContent = "";
+  scorePara.textContent = "";
+  winnerAnnouncement.textContent = "";
+  resultsSpace.removeChild(playAgainBtn);
+  resultsSpace.appendChild(roundPara);
+  resultsSpace.appendChild(scorePara);
+});
+
+// event listeners for
+// buttons - Rock, Paper or Scissors, to the playRound function
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
     // add click event listener for each button, which returns the label of the
@@ -140,7 +134,15 @@ buttons.forEach((button) =>
     scorePara.textContent = `Player: ${playerScore}; Computer: ${computerScore}`;
 
     // check for a winner
-    console.log(checkForGameWinner());
+    if (checkForGameWinner() !== "Choose again") {
+      // print game outcome to DOM
+
+      winnerAnnouncement.textContent = checkForGameWinner();
+      resultsSpace.appendChild(winnerAnnouncement);
+      // add play again button;
+
+      resultsSpace.appendChild(playAgainBtn);
+    }
   })
 );
 
@@ -151,12 +153,11 @@ buttons.forEach((button) =>
 //  function with the correct playerSelection every time a button is clicked.
 // (you can keep the console.logs for this step) - DONE
 
-// Add a div for displaying results and change all of your console.logs into DOM methods.
-// Display the running score, and announce a winner of the game once one player reaches 5 points.
-// You will likely have to refactor (rework/rewrite) your original code to make it work for this.
-// That’s OK! Reworking old code is an important part of a programmer’s life.
-// Once you’re all done with your UI and make sure everything’s satisfactory,
-// it’s time to merge our current branch rps-ui to our main branch.
+// Add a div for displaying results and change all of your console.logs into DOM methods. - DONE
+// Display the running score, and announce a winner of the game once one player reaches 5 points. - DONE
 
 // My Extra task for me...
-// Also add a score reset once at 5 pts (i.e. game over) with button pop up to play again?
+// Also add a score reset once at 5 pts (i.e. game over) with button pop up to play again? - DONE
+
+// Then Refactor for the Event Listeners in the buttons - create a callback instead of function inside.
+// Tidy up styling on results
